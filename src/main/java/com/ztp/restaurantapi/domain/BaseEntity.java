@@ -18,7 +18,7 @@ public class BaseEntity {
     @Column(name = "uuid",nullable = false)
     private UUID id;
 
-    @Column(nullable = false)
+    @Column()
     private Boolean deleted = false;
 
     @PrePersist

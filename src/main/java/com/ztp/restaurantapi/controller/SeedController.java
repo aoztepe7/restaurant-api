@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RestController
 @RequestMapping("/seed")
-public class BaseController {
+public class SeedController {
 
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
