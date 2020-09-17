@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.ztp.restaurantapi.config.JwtConfig;
 import com.ztp.restaurantapi.domain.user.User;
 import com.ztp.restaurantapi.domain.user.UserService;
+import com.ztp.restaurantapi.exception.UnauthorizedException;
 import com.ztp.restaurantapi.message.response.LoginResponse;
 import com.ztp.restaurantapi.message.ResponseCode;
 import io.jsonwebtoken.Claims;
@@ -52,12 +53,10 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                             credentials.getPassword(),
                             new ArrayList<>())
             );
-        } catch (IOException ex) {
-            throw new RuntimeException();
-        } catch (AuthenticationException e) {
-            throw new RuntimeException();
+        } catch (AuthenticationException | IOException e) {
+            //
         }
-
+        return null;
     }
 
     @Override

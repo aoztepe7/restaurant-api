@@ -33,6 +33,5 @@ public class UserCreateRequest {
     @Length(min = 8, message = "Repeat Password Must Contain Minimum 8 Characters")
     private String repeatedPassword;
 
-    @NotNull
     private Role role;
 }

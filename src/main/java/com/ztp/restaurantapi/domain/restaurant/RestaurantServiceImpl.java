@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-import javax.validation.constraints.Null;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -51,5 +50,11 @@ public class RestaurantServiceImpl implements RestaurantService{
         Pageable pageable = PageRequest.of(pageNumber,PAGE_SIZE,Sort.by(Sort.Order.asc("rate")));
         Specification<Restaurant> specification = new RestaurantSpecification(command);
         return restaurantRepository.findAll(specification,pageable);
+    }
+
+    @Override
+    public Restaurant getRestaurantByOwnerId(UUID ownerId) {
+        return Optional.ofNullable(restaurantRepository.findByOwnerIdAndDeletedFalse(ownerId))
+                .orElseThrow(RestaurantNotFoundException::new);
     }
 }
