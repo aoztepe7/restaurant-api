@@ -1,15 +1,10 @@
 package com.ztp.restaurantapi.controller;
 
-import com.ztp.restaurantapi.handler.restaurant.RestaurantCreateHandler;
-import com.ztp.restaurantapi.handler.restaurant.RestaurantDeleteHandler;
-import com.ztp.restaurantapi.handler.restaurant.RestaurantDetailHandler;
-import com.ztp.restaurantapi.handler.restaurant.RestaurantUpdateHandler;
-import com.ztp.restaurantapi.message.request.restaurant.RestaurantCreateRequest;
-import com.ztp.restaurantapi.message.request.restaurant.RestaurantDeleteRequest;
-import com.ztp.restaurantapi.message.request.restaurant.RestaurantDetailRequest;
-import com.ztp.restaurantapi.message.request.restaurant.RestaurantUpdateRequest;
+import com.ztp.restaurantapi.handler.restaurant.*;
+import com.ztp.restaurantapi.message.request.restaurant.*;
 import com.ztp.restaurantapi.message.response.CommonResponse;
 import com.ztp.restaurantapi.message.response.restaurant.RestaurantDetailResponse;
+import com.ztp.restaurantapi.message.response.restaurant.RestaurantListResponse;
 import com.ztp.restaurantapi.security.AdminRole;
 import com.ztp.restaurantapi.security.OwnerRole;
 import lombok.AllArgsConstructor;
@@ -30,6 +25,7 @@ public class RestaurantController {
     private final RestaurantDeleteHandler restaurantDeleteHandler;
     private final RestaurantDetailHandler restaurantDetailHandler;
     private final RestaurantCreateHandler restaurantCreateHandler;
+    private final RestaurantListHandler restaurantListHandler;
 
     @AdminRole
     @PostMapping("/update-restaurant")
@@ -43,7 +39,6 @@ public class RestaurantController {
         return restaurantDeleteHandler.execute(restaurantDeleteRequest);
     }
 
-    @AdminRole
     @PostMapping("/detail-restaurant")
     public RestaurantDetailResponse detailRestaurant(@Valid @RequestBody RestaurantDetailRequest restaurantDetailRequest){
         return restaurantDetailHandler.execute(restaurantDetailRequest);
@@ -53,5 +48,10 @@ public class RestaurantController {
     @PostMapping("/create-restaurant")
     public CommonResponse create(@Valid @RequestBody RestaurantCreateRequest restaurantCreateRequest, Authentication authentication){
         return restaurantCreateHandler.execute(restaurantCreateRequest,authentication);
+    }
+
+    @PostMapping("/list-restaurant")
+    public RestaurantListResponse list(@Valid @RequestBody RestaurantListRequest restaurantListRequest){
+        return restaurantListHandler.execute(restaurantListRequest);
     }
 }

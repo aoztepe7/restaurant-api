@@ -1,19 +1,16 @@
 package com.ztp.restaurantapi.controller;
 
-import com.ztp.restaurantapi.handler.review.ReviewCreateHandler;
-import com.ztp.restaurantapi.handler.review.ReviewDeleteHandler;
-import com.ztp.restaurantapi.handler.review.ReviewDetailHandler;
-import com.ztp.restaurantapi.handler.review.ReviewUpdateHandler;
-import com.ztp.restaurantapi.message.request.review.ReviewCreateRequest;
-import com.ztp.restaurantapi.message.request.review.ReviewDeleteRequest;
-import com.ztp.restaurantapi.message.request.review.ReviewDetailRequest;
-import com.ztp.restaurantapi.message.request.review.ReviewUpdateRequest;
+import com.ztp.restaurantapi.domain.user.UserService;
+import com.ztp.restaurantapi.handler.review.*;
+import com.ztp.restaurantapi.message.request.review.*;
 import com.ztp.restaurantapi.message.response.CommonResponse;
 import com.ztp.restaurantapi.message.response.review.ReviewDetailResponse;
+import com.ztp.restaurantapi.message.response.review.ReviewListResponse;
 import com.ztp.restaurantapi.security.AdminRole;
 import com.ztp.restaurantapi.security.UserRole;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +27,8 @@ public class ReviewController {
     private final ReviewUpdateHandler reviewUpdateHandler;
     private final ReviewDetailHandler reviewDetailHandler;
     private final ReviewDeleteHandler reviewDeleteHandler;
+    private final ReviewListHandler reviewListHandler;
+    private final UserService userService;
 
     @UserRole
     @PostMapping("/create")
@@ -37,9 +36,9 @@ public class ReviewController {
         return reviewCreateHandler.execute(reviewCreateRequest,authentication);
     }
 
-    @AdminRole
     @PostMapping("/update")
-    public CommonResponse updateReview(@Valid @RequestBody ReviewUpdateRequest reviewUpdateRequest){
+    public CommonResponse updateReview(@Valid @RequestBody ReviewUpdateRequest reviewUpdateRequest,Authentication authentication){
+        reviewUpdateRequest.setUserId(userService.getUserByAuth(authentication).getId());
         return reviewUpdateHandler.execute(reviewUpdateRequest);
     }
 
@@ -48,9 +47,13 @@ public class ReviewController {
         return reviewDetailHandler.execute(reviewDetailRequest);
     }
 
-    @AdminRole
     @PostMapping("/delete")
     public CommonResponse deleteReview(@Valid @RequestBody ReviewDeleteRequest reviewDeleteRequest){
         return reviewDeleteHandler.execute(reviewDeleteRequest);
+    }
+
+    @PostMapping("/list")
+    public ReviewListResponse listReview(@Valid @RequestBody ReviewListRequest reviewListRequest, Authentication authentication){
+        return reviewListHandler.execute(reviewListRequest,authentication);
     }
 }

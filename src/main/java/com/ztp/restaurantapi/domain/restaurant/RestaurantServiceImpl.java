@@ -47,7 +47,7 @@ public class RestaurantServiceImpl implements RestaurantService{
     @Override
     public Page<Restaurant> search(RestaurantListRequest command) {
         int pageNumber = command.getPage() == null || command.getPage() <= 1 ? 0 : command.getPage() -1;
-        Pageable pageable = PageRequest.of(pageNumber,PAGE_SIZE,Sort.by(Sort.Order.asc("rate")));
+        Pageable pageable = PageRequest.of(pageNumber,PAGE_SIZE,Sort.by(Sort.Order.desc("rate")));
         Specification<Restaurant> specification = new RestaurantSpecification(command);
         return restaurantRepository.findAll(specification,pageable);
     }

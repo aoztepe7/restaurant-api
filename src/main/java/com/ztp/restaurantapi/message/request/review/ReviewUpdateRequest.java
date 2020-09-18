@@ -15,7 +15,6 @@ public class ReviewUpdateRequest {
     @NotNull(message = "Restaurant ID Can Not Be Null!")
     private UUID restaurantId;
 
-    @NotNull(message = "User ID Can Not Be Null!")
     private UUID userId;
 
     @NotNull(message = "Visit Date Can Not Be Empty!")

@@ -17,6 +17,7 @@ public class ReviewDto {
     private String visitDate;
     private Boolean answerRequired;
     private String comment;
+    private Double rate;
     private Boolean deleted;
 
     public ReviewDto(Review review) {
@@ -26,6 +27,7 @@ public class ReviewDto {
         this.visitDate = Helper.dateFormatter(review.getVisitDate().toString());
         this.answerRequired = review.getAnswerRequired();
         this.comment = review.getComment();
+        this.rate = review.getRate();
         this.deleted = restaurant.getDeleted();
     }
 }

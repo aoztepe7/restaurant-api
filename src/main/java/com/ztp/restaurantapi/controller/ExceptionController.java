@@ -1,13 +1,11 @@
 package com.ztp.restaurantapi.controller;
 
-import com.ztp.restaurantapi.exception.ExceptionMessage;
-import com.ztp.restaurantapi.exception.UnauthorizedException;
+import com.ztp.restaurantapi.message.ResponseCode;
 import com.ztp.restaurantapi.message.response.BaseResponse;
-import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,12 +13,16 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class ExceptionController {
 
-    @ExceptionHandler({BadCredentialsException.class})
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public BaseResponse domainExceptionHandler(BadCredentialsException e) {
-        BaseResponse response = new BaseResponse();
-        //response.setCode(exceptionMessage.responseCode().getCode());
-        //response.setMessage(exceptionMessage.responseCode().getMessage());
-        return response;
+    public BaseResponse processValidationError(MethodArgumentNotValidException exception) {
+        BindingResult bindingResult = exception.getBindingResult();
+        FieldError error = bindingResult.getFieldError();
+
+        BaseResponse baseResponse = new BaseResponse();
+        baseResponse.setCode(ResponseCode.INVALID_REQUEST.getCode());
+        baseResponse.setMessage( error.getDefaultMessage());
+        return baseResponse;
     }
+
 }

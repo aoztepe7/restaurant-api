@@ -18,4 +18,14 @@ public class Helper {
         sb.append(formattedDate[2]);
         return sb.toString();
     }
+
+    public static String dateFormatForDb(String date) {
+        String day = date.substring(0, 2);
+        String month = date.substring(3, 5);
+        String year = date.substring(6, 10);
+        StringBuilder sb = new StringBuilder();
+        sb.append(year).append('-').append(month).append('-').append(day);
+        return sb.toString();
+    }
+
 }

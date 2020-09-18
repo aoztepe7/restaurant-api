@@ -1,5 +1,6 @@
 package com.ztp.restaurantapi.handler.review;
 
+import com.ztp.restaurantapi.Utils.Helper;
 import com.ztp.restaurantapi.domain.restaurant.Restaurant;
 import com.ztp.restaurantapi.domain.restaurant.RestaurantService;
 import com.ztp.restaurantapi.domain.review.Review;
@@ -35,7 +36,7 @@ public class ReviewUpdateHandler implements Handler<ReviewUpdateRequest,CommonRe
         review.setRestaurant(restaurant);
         review.setUser(user);
         review.setRate(request.getRate());
-        review.setVisitDate(LocalDate.parse(request.getVisitDate()));
+        review.setVisitDate(LocalDate.parse(Helper.dateFormatForDb(request.getVisitDate())));
         review.setAnswerRequired(request.getAnswerRequired());
         review.setComment(request.getComment());
         reviewService.update(review);
