@@ -15,5 +15,7 @@ public class RestaurantListRequest {
 
     private Double rate;
 
+    public Boolean isOwner;
+
     private Integer page;
 }

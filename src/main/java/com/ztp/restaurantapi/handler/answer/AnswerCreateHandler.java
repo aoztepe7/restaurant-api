@@ -24,11 +24,9 @@ public class AnswerCreateHandler {
     private final AnswerService answerService;
     private final ReviewService reviewService;
     private final RestaurantService restaurantService;
-    private final UserService userService;
 
-    public CommonResponse execute(AnswerCreateRequest request, Authentication authentication) {
-        User user = userService.getUserByAuth(authentication);
-        Restaurant restaurant = restaurantService.getRestaurantByOwnerId(user.getId());
+    public CommonResponse execute(AnswerCreateRequest request) {
+        Restaurant restaurant = restaurantService.getById(request.getRestaurantId());
 
         Answer existingAnswer = answerService.getByReviewAndRestaurant(request.getReviewId(),restaurant.getId());
 
@@ -39,6 +37,8 @@ public class AnswerCreateHandler {
             answer.setReview(review);
             answer.setOwnerAnswer(request.getOwnerAnswer());
             answerService.create(answer);
+            review.setAnswerRequired(false);
+            reviewService.update(review);
 
             return CommonResponse.builder()
                     .responseCode(ResponseCode.SUCCESS)

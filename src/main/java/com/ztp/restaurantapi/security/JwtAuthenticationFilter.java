@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.ztp.restaurantapi.config.JwtConfig;
 import com.ztp.restaurantapi.domain.user.User;
 import com.ztp.restaurantapi.domain.user.UserService;
-import com.ztp.restaurantapi.exception.UnauthorizedException;
 import com.ztp.restaurantapi.message.response.LoginResponse;
 import com.ztp.restaurantapi.message.ResponseCode;
 import io.jsonwebtoken.Claims;
@@ -75,6 +74,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         LoginResponse loginResponse = LoginResponse.builder()
                 .responseCode(ResponseCode.SUCCESS)
+                .role(((org.springframework.security.core.userdetails.User) authResult.getPrincipal()).getAuthorities()
+                        .stream().findFirst().get().toString())
                 .token(token)
                 .build();
 

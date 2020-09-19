@@ -33,8 +33,8 @@ public class AnswerController {
 
     @OwnerRole
     @PostMapping("/create")
-    public CommonResponse createAnswer(@Valid @RequestBody AnswerCreateRequest answerCreateRequest, Authentication authentication){
-        return answerCreateHandler.execute(answerCreateRequest,authentication);
+    public CommonResponse createAnswer(@Valid @RequestBody AnswerCreateRequest answerCreateRequest){
+        return answerCreateHandler.execute(answerCreateRequest);
     }
 
     @AdminRole

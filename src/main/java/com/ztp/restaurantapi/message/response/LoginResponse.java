@@ -7,10 +7,12 @@ import lombok.Getter;
 @Getter
 public class LoginResponse extends BaseResponse{
     private String token;
+    private String role;
 
     @Builder
-    public LoginResponse(ResponseCode responseCode, String token){
+    public LoginResponse(ResponseCode responseCode, String token,String role){
         super(responseCode);
         this.token = token;
+        this.role = role;
     }
 }

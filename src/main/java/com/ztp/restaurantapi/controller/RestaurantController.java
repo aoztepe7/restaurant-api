@@ -51,7 +51,7 @@ public class RestaurantController {
     }
 
     @PostMapping("/list-restaurant")
-    public RestaurantListResponse list(@Valid @RequestBody RestaurantListRequest restaurantListRequest){
-        return restaurantListHandler.execute(restaurantListRequest);
+    public RestaurantListResponse list(@Valid @RequestBody RestaurantListRequest restaurantListRequest,Authentication authentication){
+        return restaurantListHandler.execute(restaurantListRequest,authentication);
     }
 }

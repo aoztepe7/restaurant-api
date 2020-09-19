@@ -10,5 +10,5 @@ import java.util.UUID;
 @Setter
 public class AnswerDetailRequest {
     @NotNull
-    private UUID id;
+    private UUID reviewId;
 }

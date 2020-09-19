@@ -16,5 +16,5 @@ public interface RestaurantService {
 
     Page<Restaurant> search(RestaurantListRequest command);
 
-    Restaurant getRestaurantByOwnerId(UUID ownerId);
+    //Restaurant getRestaurantByOwnerId(UUID ownerId);
 }

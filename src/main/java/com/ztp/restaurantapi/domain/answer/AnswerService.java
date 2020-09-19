@@ -12,4 +12,6 @@ public interface AnswerService {
     void update(Answer answer);
 
     Answer getByReviewAndRestaurant(UUID reviewId,UUID restaurantId);
+
+    Answer getByReview(UUID reviewId);
 }

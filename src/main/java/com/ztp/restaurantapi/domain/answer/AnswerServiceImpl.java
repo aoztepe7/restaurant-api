@@ -49,4 +49,9 @@ public class AnswerServiceImpl implements AnswerService {
     public Answer getByReviewAndRestaurant(UUID reviewId, UUID restaurantId) {
         return answerRepository.findByReviewIdAndRestaurantIdAndDeletedFalse(reviewId,restaurantId);
     }
+
+    @Override
+    public Answer getByReview(UUID reviewId) {
+        return answerRepository.findByReviewIdAndDeletedFalse(reviewId);
+    }
 }

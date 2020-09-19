@@ -52,9 +52,9 @@ public class RestaurantServiceImpl implements RestaurantService{
         return restaurantRepository.findAll(specification,pageable);
     }
 
-    @Override
+    /*@Override
     public Restaurant getRestaurantByOwnerId(UUID ownerId) {
         return Optional.ofNullable(restaurantRepository.findByOwnerIdAndDeletedFalse(ownerId))
                 .orElseThrow(RestaurantNotFoundException::new);
-    }
+    }*/
 }

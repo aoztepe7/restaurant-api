@@ -12,5 +12,8 @@ public class AnswerCreateRequest {
     @NotNull(message = "Review Id Can Not Be Empty!")
     private UUID reviewId;
 
+    @NotNull(message = "Restaurant Id Can Not Be Empty!")
+    private UUID restaurantId;
+
     private String ownerAnswer;
 }

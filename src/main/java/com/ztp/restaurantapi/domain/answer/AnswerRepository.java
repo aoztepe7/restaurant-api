@@ -9,4 +9,6 @@ public interface AnswerRepository extends CrudRepository<Answer, UUID>{
     Answer findByIdAndDeletedFalse(UUID id);
 
     Answer findByReviewIdAndRestaurantIdAndDeletedFalse(UUID reviewId,UUID restaurantId);
+
+    Answer findByReviewIdAndDeletedFalse(UUID reviewId);
 }

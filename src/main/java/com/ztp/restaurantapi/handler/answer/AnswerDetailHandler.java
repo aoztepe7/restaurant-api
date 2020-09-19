@@ -18,7 +18,7 @@ public class AnswerDetailHandler implements Handler<AnswerDetailRequest, AnswerD
 
     @Override
     public AnswerDetailResponse execute(AnswerDetailRequest request) {
-        Answer answer = answerService.getById(request.getId());
+        Answer answer = answerService.getByReview(request.getReviewId());
 
         return AnswerDetailResponse.builder()
                 .answer(new AnswerDto(answer))
