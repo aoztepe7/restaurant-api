@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ReviewRepository extends CrudRepository<Review, UUID>, JpaSpecificationExecutor<Review> {
-    Review findByIdAndDeletedFalse(UUID id);
+    Review findByIdAndDeletedNotNull(UUID id);
 
-    List<Review> findAllByRestaurantIdAndDeletedFalse(UUID restaurantId);
+    List<Review> findAllByRestaurantIdAndDeletedNotNull(UUID restaurantId);
 }

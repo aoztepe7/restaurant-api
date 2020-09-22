@@ -1,17 +1,8 @@
 package com.ztp.restaurantapi.domain.answer;
 
-import com.ztp.restaurantapi.domain.review.*;
-import com.ztp.restaurantapi.message.request.review.ReviewListRequest;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
-import javax.swing.text.html.Option;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -23,7 +14,7 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public Answer getById(UUID id) {
-        return Optional.ofNullable(answerRepository.findByIdAndDeletedFalse(id))
+        return Optional.ofNullable(answerRepository.findByIdAndDeletedNotNull(id))
                 .orElseThrow(AnswerNotFoundException::new);
     }
 
@@ -47,11 +38,11 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     public Answer getByReviewAndRestaurant(UUID reviewId, UUID restaurantId) {
-        return answerRepository.findByReviewIdAndRestaurantIdAndDeletedFalse(reviewId,restaurantId);
+        return answerRepository.findByReviewIdAndRestaurantIdAndDeletedNotNull(reviewId,restaurantId);
     }
 
     @Override
     public Answer getByReview(UUID reviewId) {
-        return answerRepository.findByReviewIdAndDeletedFalse(reviewId);
+        return answerRepository.findByReviewIdAndDeletedNotNull(reviewId);
     }
 }

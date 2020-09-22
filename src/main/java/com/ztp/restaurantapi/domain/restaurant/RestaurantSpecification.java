@@ -32,7 +32,7 @@ public class RestaurantSpecification implements Specification<Restaurant> {
             predicates.add(cb.greaterThanOrEqualTo(root.get("rate"),restaurantListRequest.getRate()));
         }
 
-        predicates.add(cb.and(cb.equal(root.get("deleted"),false)));
+        predicates.add(cb.and(cb.isNotNull(root.get("deleted"))));
         return cb.and(predicates.toArray(new Predicate[predicates.size()]));
     }
 }

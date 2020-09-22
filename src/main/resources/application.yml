@@ -26,8 +26,6 @@ jwt:
   tokenPrefix: Bearer
   headerString: Authorization
 
-interface:
-  user-ui: http://localhost:4200
 
 
 

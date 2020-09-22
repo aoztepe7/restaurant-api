@@ -1,16 +1,11 @@
 package com.ztp.restaurantapi.controller;
 
 import com.ztp.restaurantapi.domain.user.Role;
-import com.ztp.restaurantapi.handler.user.UserCreateHandler;
-import com.ztp.restaurantapi.handler.user.UserDeleteHandler;
-import com.ztp.restaurantapi.handler.user.UserDetailHandler;
-import com.ztp.restaurantapi.handler.user.UserUpdateHandler;
-import com.ztp.restaurantapi.message.request.user.UserCreateRequest;
-import com.ztp.restaurantapi.message.request.user.UserDeleteRequest;
-import com.ztp.restaurantapi.message.request.user.UserDetailRequest;
-import com.ztp.restaurantapi.message.request.user.UserUpdateRequest;
+import com.ztp.restaurantapi.handler.user.*;
+import com.ztp.restaurantapi.message.request.user.*;
 import com.ztp.restaurantapi.message.response.CommonResponse;
 import com.ztp.restaurantapi.message.response.user.UserDetailResponse;
+import com.ztp.restaurantapi.message.response.user.UserListResponse;
 import com.ztp.restaurantapi.security.AdminRole;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +22,7 @@ public class UserController {
     private final UserUpdateHandler userUpdateHandler;
     private final UserDeleteHandler userDeleteHandler;
     private final UserDetailHandler userDetailHandler;
+    private final UserListHandler userListHandler;
 
     @PostMapping("/register")
     public CommonResponse register(@Valid @RequestBody UserCreateRequest request){
@@ -50,5 +46,11 @@ public class UserController {
     @PostMapping("/api/v1/user/detail-user")
     public UserDetailResponse detailUser(@Valid @RequestBody UserDetailRequest userDetailRequest){
         return userDetailHandler.execute(userDetailRequest);
+    }
+
+    @AdminRole
+    @PostMapping("/api/v1/user/list")
+    public UserListResponse listUser(@Valid @RequestBody UserListRequest userListRequest){
+        return userListHandler.execute(userListRequest);
     }
 }

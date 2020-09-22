@@ -22,7 +22,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 
     @Override
     public Restaurant getById(UUID id) {
-        return Optional.ofNullable(restaurantRepository.findByIdAndDeletedFalse(id))
+        return Optional.ofNullable(restaurantRepository.findByIdAndDeletedNotNull(id))
                 .orElseThrow(RestaurantNotFoundException::new);
     }
 
@@ -51,10 +51,4 @@ public class RestaurantServiceImpl implements RestaurantService{
         Specification<Restaurant> specification = new RestaurantSpecification(command);
         return restaurantRepository.findAll(specification,pageable);
     }
-
-    /*@Override
-    public Restaurant getRestaurantByOwnerId(UUID ownerId) {
-        return Optional.ofNullable(restaurantRepository.findByOwnerIdAndDeletedFalse(ownerId))
-                .orElseThrow(RestaurantNotFoundException::new);
-    }*/
 }

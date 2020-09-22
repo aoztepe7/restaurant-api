@@ -23,7 +23,6 @@ public class UserUpdateHandler implements Handler<UserUpdateRequest,CommonRespon
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setMail(request.getMail());
-        user.setPassword(encoder.encode(request.getPassword()));
         user.setRole(request.getRole());
         userService.update(user);
 

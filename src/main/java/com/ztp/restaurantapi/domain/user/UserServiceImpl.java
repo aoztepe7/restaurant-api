@@ -25,13 +25,13 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User getById(UUID id) {
-        return Optional.ofNullable(userRepository.findByIdAndDeletedFalse(id))
+        return Optional.ofNullable(userRepository.findByIdAndDeletedNotNull(id))
                 .orElseThrow(UserNotFoundException::new);
     }
 
     @Override
     public User getByMail(String mail) {
-        return Optional.ofNullable(userRepository.findByMailAndDeletedFalse(mail))
+        return Optional.ofNullable(userRepository.findByMailAndDeletedNotNull(mail))
                 .orElseThrow(UserNotFoundException::new);
     }
 

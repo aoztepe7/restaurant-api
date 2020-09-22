@@ -29,14 +29,6 @@ public class UserUpdateRequest {
     @Email(message = "Please Make Sure That Your Mail Address Contains '@' and domain" )
     private String mail;
 
-    @NotEmpty(message = "Password Can Not Be Empty!")
-    @Length(min = 8, message = "Password Must Contain Minimum 8 Characters")
-    private String password;
-
-    @NotEmpty(message = "Repeat Password Can Not Be Empty!")
-    @Length(min = 8, message = "Repeat Password Must Contain Minimum 8 Characters")
-    private String repeatedPassword;
-
     @NotNull
     private Role role;
 }

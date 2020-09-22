@@ -34,6 +34,7 @@ public class UserSpecification implements Specification<User> {
             predicates.add(cb.and(cb.equal(root.get("role"),userListRequest.getRole())));
         }
 
+        predicates.add(cb.and(cb.isNotNull(root.get("deleted"))));
         return cb.and(predicates.toArray(new Predicate[predicates.size()]));
     }
 }

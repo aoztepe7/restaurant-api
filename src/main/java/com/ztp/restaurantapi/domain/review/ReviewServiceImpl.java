@@ -1,6 +1,5 @@
 package com.ztp.restaurantapi.domain.review;
 
-import com.ztp.restaurantapi.domain.restaurant.*;
 import com.ztp.restaurantapi.message.request.review.ReviewListRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -25,7 +24,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review getById(UUID id) {
-        return Optional.ofNullable(reviewRepository.findByIdAndDeletedFalse(id))
+        return Optional.ofNullable(reviewRepository.findByIdAndDeletedNotNull(id))
                 .orElseThrow(ReviewNotFoundException::new);
     }
 
@@ -57,6 +56,6 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public List<Review> getAllReviewsByRestaurant(UUID restaurantId) {
-        return reviewRepository.findAllByRestaurantIdAndDeletedFalse(restaurantId);
+        return reviewRepository.findAllByRestaurantIdAndDeletedNotNull(restaurantId);
     }
 }
